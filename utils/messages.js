@@ -15,7 +15,7 @@ const messages = {
     message: 'Please use valid login credentials',
   },
   noToken: {
-    message: 'Please provide a token',
+    message: 'Please provide a token in the Authorization header',
   },
   invalidToken: {
     message: 'Please provide valid token',

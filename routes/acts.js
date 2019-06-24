@@ -1,6 +1,5 @@
 const express = require('express');
 
-const paths = require('../utils/paths');
 const { models } = require('../model/index');
 const status = require('../utils/status');
 const messages = require('../utils/messages');
@@ -70,7 +69,7 @@ routes.post('/', validateToken, async (req, res) => {
 
 /*
 [PUT] - to /acts
-Send: a valid JWT in the headers and an object containing an act_id and (a description: string and/or level: string (Easy, Medium, or Hard))
+Send: a valid JWT in the headers, an actID in params, and a body with description: string and/or level: string (Easy, Medium, or Hard)
 Receive: updated array of acts for the user
 */
 routes.put('/:actID', validateToken, async (req, res) => {
@@ -85,11 +84,14 @@ routes.put('/:actID', validateToken, async (req, res) => {
         // check if the user exists and/or the act exists
         const user = await models.User.findById(payload);
         if (user) {
+          // check if the act within the user exists
           let act = await user.acts.id(actID);
           if (act) {
+            // change the level for the act if its included in the request
             if (level) {
               act.level = capitalize(level);
             }
+            // change the description for the act if its included in request
             if (description) {
               act.description = description;
             }
@@ -110,6 +112,38 @@ routes.put('/:actID', validateToken, async (req, res) => {
     }
   } else {
     res.status(status.badRequest).json(messages.missingOnPutAct);
+  }
+});
+
+/*
+[DELETE] - to /acts
+Send: a valid JWT in the headers and an actID in params
+Receive: updated array of acts for the user
+*/
+routes.delete('/:actID', validateToken, async (req, res) => {
+  const { payload } = req.decodedToken;
+  const { actID } = req.params;
+
+  try {
+    // check if the user exists and/or the act exists
+    const user = await models.User.findById(payload);
+    if (user) {
+      // check if the act within the user exists
+      let act = await user.acts.id(actID);
+      if (act) {
+        // delete the act
+        await act.remove();
+        await user.save();
+        const updatedUser = await models.User.findById(payload);
+        res.status(status.goodRequest).json(updatedUser.acts);
+      } else {
+        res.status(status.badRequest).json(messages.actNoExist);
+      }
+    } else {
+      res.status(status.badRequest).json(messages.userNoExist);
+    }
+  } catch (error) {
+    console.error(error);
   }
 });
 
