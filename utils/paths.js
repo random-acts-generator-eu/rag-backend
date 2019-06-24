@@ -1,7 +1,7 @@
 const paths = {
-    auth: '/auth',
-    contacts: '/contacts',
-    acts: '/acts',
-}
+  auth: '/auth',
+  contacts: '/contacts',
+  acts: '/acts',
+};
 
 module.exports = paths;
