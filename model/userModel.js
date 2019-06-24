@@ -24,7 +24,7 @@ const contactSchema = new mongoose.Schema({
   },
   closeness: {
     type: Number,
-    enum: [1, 2, 3],
+    enum: ['Best Friend', 'Close Friend', 'Friend'],
     required: true,
   },
 });
