@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 
+const paths = require('../utils/paths');
 const createToken = require('../utils/createToken');
 const { models } = require('../model/index');
 const status = require('../utils/status');
@@ -17,7 +18,7 @@ const routes = express.Router();
 Send: body with firstName, lastName, email (valid), phone number, and password (at lest 7 characters)
 Receive: object containing a user and a jwt token
 */
-routes.post('/register', async (req, res) => {
+routes.post(paths.register, async (req, res) => {
   let { firstName, lastName, email, phone, password } = req.body;
   // if all required fields have been sent over
   if (firstName && lastName && email && phone && password) {
@@ -61,7 +62,7 @@ routes.post('/register', async (req, res) => {
 Send: body with valid email and password combination
 Receive: object containing the user and a jwt token
 */
-routes.post('/login', async (req, res) => {
+routes.post(paths.login, async (req, res) => {
   const { email, password } = req.body;
   // if all require fields have been sent over
   if (email && password) {

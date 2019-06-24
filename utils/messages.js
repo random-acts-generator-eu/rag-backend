@@ -20,6 +20,9 @@ const messages = {
   invalidToken: {
     message: 'Please provide valid token',
   },
+  userNoExist: {
+    message: 'User with this token does not exist',
+  },
 };
 
 module.exports = messages;
