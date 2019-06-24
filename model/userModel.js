@@ -7,8 +7,8 @@ const actSchema = new mongoose.Schema({
     required: true,
   },
   level: {
-    type: Number,
-    enum: [1, 2, 3],
+    type: String,
+    enum: ['Easy', 'Medium', 'Hard'],
     required: true,
   },
 });
@@ -19,7 +19,7 @@ const contactSchema = new mongoose.Schema({
     required: true,
   },
   last_name: {
-    type: string,
+    type: String,
     required: true,
   },
   closeness: {

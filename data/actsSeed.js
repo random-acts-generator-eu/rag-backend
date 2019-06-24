@@ -1,42 +1,44 @@
-const acts = [
+const seedActs = [
   {
     description: 'Send them a handwritten letter or postcard',
-    level: 2,
+    level: 'Medium',
   },
   {
     description: 'Bake them some treats.',
-    level: 2,
+    level: 'Medium',
   },
   {
     description: 'Make them a playlist.',
-    level: 1,
+    level: 'Easy',
   },
   {
     description: 'Give them a hug.',
-    level: 1,
+    level: 'Easy',
   },
   {
     description: 'Take them to the movies.',
-    level: 2,
+    level: 'Medium',
   },
   {
     description: 'Throw them a surprise party.',
-    level: 3,
+    level: 'Hard',
   },
   {
     description: 'Take them on a road trip.',
-    level: 3,
+    level: 'Hard',
   },
   {
     description: 'Cook them a meal.',
-    level: 2,
+    level: 'Medium',
   },
   {
     description: 'Do their laundry.',
-    level: 1,
+    level: 'Easy',
   },
   {
     description: 'Send them a care package.',
-    level: 2,
+    level: 'Medium',
   },
 ];
+
+module.exports = seedActs
