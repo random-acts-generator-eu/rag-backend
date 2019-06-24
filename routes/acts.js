@@ -33,7 +33,7 @@ routes.get('/', validateToken, async (req, res) => {
 /*
 [POST] - to /acts
 Send: a valid JWT in the headers and an object containing a description: string and level: string (Easy, Medium, or Hard)
-Receive: updates array of acts for the user
+Receive: updated array of acts for the user
 */
 routes.post('/', validateToken, async (req, res) => {
   // get the user id from the decoded token
@@ -65,6 +65,51 @@ routes.post('/', validateToken, async (req, res) => {
     }
   } else {
     res.status(status.badRequest).json(messages.missingOnPostAct);
+  }
+});
+
+/*
+[PUT] - to /acts
+Send: a valid JWT in the headers and an object containing an act_id and (a description: string and/or level: string (Easy, Medium, or Hard))
+Receive: updated array of acts for the user
+*/
+routes.put('/:actID', validateToken, async (req, res) => {
+  const { payload } = req.decodedToken;
+  const { actID } = req.params;
+  const { description, level } = req.body;
+  const levels = ['Easy', 'Medium', 'Hard'];
+
+  if (description || level) {
+    if (!level || levels.includes(capitalize(level))) {
+      try {
+        // check if the user exists and/or the act exists
+        const user = await models.User.findById(payload);
+        if (user) {
+          let act = await user.acts.id(actID);
+          if (act) {
+            if (level) {
+              act.level = capitalize(level);
+            }
+            if (description) {
+              act.description = description;
+            }
+            await user.save();
+            const updatedUser = await models.User.findById(payload);
+            res.status(status.goodRequest).json(updatedUser.acts);
+          } else {
+            res.status(status.badRequest).json(messages.actNoExist);
+          }
+        } else {
+          res.status(status.badRequest).json(messages.userNoExist);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      res.status(status.badRequest).json(messages.invalidLevel);
+    }
+  } else {
+    res.status(status.badRequest).json(messages.missingOnPutAct);
   }
 });
 

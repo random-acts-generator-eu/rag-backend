@@ -29,6 +29,15 @@ const messages = {
   invalidLevel: {
     message: 'Please include a valid level for the act: easy, medium, or hard',
   },
+  missingOnPutAct: {
+    message: 'Please include a description or level to update an act',
+  },
+  actNoExist: {
+    message: 'Act with this ID does not exist',
+  },
+  noActID: {
+    message: 'Pleasse provide an actID in the params',
+  },
 };
 
 module.exports = messages;
