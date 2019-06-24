@@ -14,6 +14,12 @@ const messages = {
   invalidCredentials: {
     message: 'Please use valid login credentials',
   },
+  noToken: {
+    message: 'Please provide a token',
+  },
+  invalidToken: {
+    message: 'Please provide valid token',
+  },
 };
 
 module.exports = messages;
