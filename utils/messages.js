@@ -23,6 +23,12 @@ const messages = {
   userNoExist: {
     message: 'User with this token does not exist',
   },
+  missingOnPostAct: {
+    message: 'Please include a description and level to add a new act',
+  },
+  invalidLevel: {
+    message: 'Please include a valid level for the act: easy, medium, or hard',
+  },
 };
 
 module.exports = messages;
