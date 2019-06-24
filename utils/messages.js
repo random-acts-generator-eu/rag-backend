@@ -8,6 +8,12 @@ const messages = {
   invalidPassword: {
     message: 'Please use a password with at least 7 charcters',
   },
+  missingOnLogin: {
+    message: 'Please include all required fields to login',
+  },
+  invalidCredentials: {
+    message: 'Please use valid login credentials',
+  },
 };
 
 module.exports = messages;
