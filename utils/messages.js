@@ -42,7 +42,15 @@ const messages = {
     message: 'Please include a firstName, lastName, and level to add a new act',
   },
   invalidLevelContact: {
-    message: 'Please include a valid level for the contact: friend, close friend, or best friend',
+    message:
+      'Please include a valid level for the contact: friend, close friend, or best friend',
+  },
+  contactNoExist: {
+    message: 'Contact with this ID does not exist',
+  },
+  missingOnPutContact: {
+    message:
+      'Please include a firstName, lastName or level to update a contact',
   },
 };
 
