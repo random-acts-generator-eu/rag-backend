@@ -39,8 +39,8 @@ routes.post('/', validateToken, async (req, res) => {
   const { payload } = req.decodedToken;
   const { description, level } = req.body;
   const levels = ['Easy', 'Medium', 'Hard'];
-  const capLevel = capitalize(level);
   if (description && level) {
+    const capLevel = capitalize(level);
     if (levels.includes(capLevel)) {
       try {
         // look up the user in DB and determine whether they exist
@@ -60,7 +60,7 @@ routes.post('/', validateToken, async (req, res) => {
         console.error(error);
       }
     } else {
-      res.status(status.badRequest).json(messages.invalidLevel);
+      res.status(status.badRequest).json(messages.invalidLevelAct);
     }
   } else {
     res.status(status.badRequest).json(messages.missingOnPostAct);
@@ -108,7 +108,7 @@ routes.put('/:actID', validateToken, async (req, res) => {
         console.error(error);
       }
     } else {
-      res.status(status.badRequest).json(messages.invalidLevel);
+      res.status(status.badRequest).json(messages.invalidLevelAct);
     }
   } else {
     res.status(status.badRequest).json(messages.missingOnPutAct);

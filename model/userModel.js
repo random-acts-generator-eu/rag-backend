@@ -22,9 +22,9 @@ const contactSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  closeness: {
-    type: Number,
-    enum: ['Best Friend', 'Close Friend', 'Friend'],
+  level: {
+    type: String,
+    enum: ['Friend', 'Close Friend', 'Best Friend'],
     required: true,
   },
 });

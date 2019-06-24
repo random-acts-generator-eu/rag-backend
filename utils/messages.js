@@ -26,7 +26,7 @@ const messages = {
   missingOnPostAct: {
     message: 'Please include a description and level to add a new act',
   },
-  invalidLevel: {
+  invalidLevelAct: {
     message: 'Please include a valid level for the act: easy, medium, or hard',
   },
   missingOnPutAct: {
@@ -37,6 +37,12 @@ const messages = {
   },
   noActID: {
     message: 'Pleasse provide an actID in the params',
+  },
+  missingOnPostContact: {
+    message: 'Please include a firstName, lastName, and level to add a new act',
+  },
+  invalidLevelContact: {
+    message: 'Please include a valid level for the contact: friend, close friend, or best friend',
   },
 };
 
