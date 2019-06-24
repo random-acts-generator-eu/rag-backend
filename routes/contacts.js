@@ -123,4 +123,36 @@ routes.put('/:contactID', validateToken, async (req, res) => {
   }
 });
 
+/*
+[DELETE] - to /contacts
+Send: a valid JWT in the headers and a contactID in params
+Receive: updated array of contacts for the user
+*/
+routes.delete('/:contactID', validateToken, async (req, res) => {
+  const { payload } = req.decodedToken;
+  const { contactID } = req.params;
+
+  try {
+    // check if the user exists
+    const user = await models.User.findById(payload);
+    if (user) {
+      // check if the contact within the user exists
+      let contact = await user.contacts.id(contactID);
+      if (contact) {
+        // delete the act
+        await contact.remove();
+        await user.save();
+        const updatedUser = await models.User.findById(payload);
+        res.status(status.goodRequest).json(updatedUser.contacts);
+      } else {
+        res.status(status.badRequest).json(messages.contactNoExist);
+      }
+    } else {
+      res.status(status.badRequest).json(messages.userNoExist);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 module.exports = routes;

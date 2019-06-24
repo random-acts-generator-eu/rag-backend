@@ -125,7 +125,7 @@ routes.delete('/:actID', validateToken, async (req, res) => {
   const { actID } = req.params;
 
   try {
-    // check if the user exists and/or the act exists
+    // check if the user exists
     const user = await models.User.findById(payload);
     if (user) {
       // check if the act within the user exists
