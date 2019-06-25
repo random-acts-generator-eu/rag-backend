@@ -78,10 +78,10 @@ The full user object with a jwt token, acts array, and contacts array
 Note: New users are seeded with a set of 10 random acts, the jwt token returned must be used in all future requests
 
 #### Errors
-401 - Invalid password - message: 'Please use a password with at least 7 charcters' </br>
-401 - User already exists - message: 'A user with this email address already exists, please use another' </br>
-401 - Invalid email - message: 'Please use a valid email address' </br>
-401 - Mising on register - message: 'Please include all required fields to register'
+401 - Invalid password - 'Please use a password with at least 7 charcters' </br>
+401 - User already exists -'A user with this email address already exists, please use another' </br>
+401 - Invalid email - 'Please use a valid email address' </br>
+401 - Mising on register - 'Please include all required fields to register'
 
 ### Login
 
