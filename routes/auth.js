@@ -24,30 +24,36 @@ routes.post(paths.register, async (req, res) => {
   if (firstName && lastName && email && phone && password) {
     // if the email address provided is a valid email
     if (validateEmail(email)) {
-      // if the password is at least 7 charcters
-      if (validatePassword(password)) {
-        try {
-          // hash the password with bcrypt
-          password = bcrypt.hashSync(password, 10);
-          // format names to first char capitalize and email to lower case
-          const user = await models.User.create({
-            first_name: capitalize(firstName),
-            last_name: capitalize(lastName),
-            email: email.toLowerCase(),
-            phone,
-            password,
-            // include the seeded set of acts for new users
-            acts: actsSeed,
-          });
-          // generate jwt token
-          const token = createToken({ id: user.id, firstName, email });
-          // return token and user info
-          res.status(status.creationSuccess).json({ user, token });
-        } catch (error) {
-          console.error(error);
+      // if the email address provided does not already have an account
+      const [existingUser] = await models.User.find({ email });
+      if (!existingUser) {
+        // if the password is at least 7 charcters
+        if (validatePassword(password)) {
+          try {
+            // hash the password with bcrypt
+            password = bcrypt.hashSync(password, 10);
+            // format names to first char capitalize and email to lower case
+            const user = await models.User.create({
+              first_name: capitalize(firstName),
+              last_name: capitalize(lastName),
+              email: email.toLowerCase(),
+              phone,
+              password,
+              // include the seeded set of acts for new users
+              acts: actsSeed,
+            });
+            // generate jwt token
+            const token = createToken({ id: user.id, firstName, email });
+            // return token and user info
+            res.status(status.creationSuccess).json({ user, token });
+          } catch (error) {
+            console.error(error);
+          }
+        } else {
+          res.status(status.badRequest).json(messages.invalidPassword);
         }
       } else {
-        res.status(status.badRequest).json(messages.invalidPassword);
+        res.status(status.badRequest).json(messages.userAlreadyExists);
       }
     } else {
       res.status(status.badRequest).json(messages.invalidEmail);

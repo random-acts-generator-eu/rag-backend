@@ -52,6 +52,10 @@ const messages = {
     message:
       'Please include a firstName, lastName or level to update a contact',
   },
+  userAlreadyExists: {
+    message:
+      'A user with this email address already exists, please use another',
+  },
 };
 
 module.exports = messages;
