@@ -139,7 +139,7 @@ All acts requets are made to /acts
 ### Get all acts for the user
 
 #### Request
-**GET** request to /acts 
+**GET** request to /acts <br />
 A valid jwt token must be passed in the **Authorization** header
 
 #### Response
