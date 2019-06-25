@@ -6,7 +6,7 @@ All API requests are made to: https://rag-eu.herokuapp.com
 #### Request
 **GET** request to /
 
-#### Response
+#### Response 200
 ```
 {
     "message": "Alive",
@@ -31,7 +31,7 @@ All auth requets are made to /auth
 ```
 Note: All component of the request are strings, passwords must be at least 7 characters
 
-#### Response
+#### Response 201
 The full user object with a jwt token, acts array, and contacts array
 ```
 {
@@ -94,7 +94,7 @@ Note: New users are seeded with a set of 10 random acts, the jwt token returned 
 }
 ```
 
-#### Response
+#### Response 200
 The full user object with a jwt token, acts array, and contacts array
 ```
 {
@@ -148,7 +148,7 @@ All acts requets are made to /acts
 **GET** request to /acts <br />
 A valid jwt token must be passed in the **Authorization** header
 
-#### Response
+#### Response 200
 A list of all acts associated with the user
 ```
 [
@@ -193,7 +193,7 @@ A valid jwt token must be passed in the **Authorization** header
 ```
 Note: level must be one of Easy, Medium, or Hard (case insensitive)
 
-#### Response
+#### Response 201
 An updated list of all the acts associated with the user
 ```
 [
@@ -245,7 +245,7 @@ actID param must be a valid id number associated with the user and act
 ```
 Note: Must include a change to either the description or level or both
 
-#### Response
+#### Response 200
 An updated list of all the acts associated with the user
 ```
 [
@@ -289,7 +289,7 @@ An updated list of all the acts associated with the user
 A valid jwt token must be passed in the **Authorization** header <br />
 actID param must be a valid id number associated with the user and act
 
-#### Response
+#### Response 200
 An updated list of all the acts associated with the user
 ```
 [
@@ -330,7 +330,7 @@ All contacts requets are made to /contacts
 **GET** request to /contacts <br />
 A valid jwt token must be passed in the **Authorization** header
 
-#### Response
+#### Response 200
 ```
 [
     {
@@ -362,7 +362,7 @@ A valid jwt token must be passed in the **Authorization** header
 ```
 Note: level must be one of Friend, Close Friend, or Best Friend (case insensitive)
 
-#### Response
+#### Response 201
 An updated list of all the contacts associated with the user
 ```
 [
@@ -402,7 +402,7 @@ contactID param must be a valid id number associated with the user and contact
 ```
 Note: Must include a change to either the firstName, lastName or level or all
 
-#### Response
+#### Response 200
 An updated list of all the contacts associated with the user
 ```
 [
@@ -434,7 +434,7 @@ An updated list of all the contacts associated with the user
 A valid jwt token must be passed in the **Authorization** header <br />
 contactID param must be a valid id number associated with the user and contact
 
-#### Response
+#### Response 200
 An updated list of all the contacts associated with the user
 ```
 [
