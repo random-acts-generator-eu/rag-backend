@@ -177,7 +177,7 @@ A list of all acts associated with the user
 ### Add a new act to the user
 
 #### Request
-**POST** request to /acts
+**POST** request to /acts <br />
 A valid jwt token must be passed in the **Authorization** header
 ```
 {
@@ -228,8 +228,8 @@ An updated list of all the acts associated with the user
 ### Edit an act associated with the user
 
 #### Request
-**PUT** request to /acts/:actID
-A valid jwt token must be passed in the **Authorization** header
+**PUT** request to /acts/:actID <br />
+A valid jwt token must be passed in the **Authorization** header <br />
 actID param must be a valid id number associated with the user and act
 ```
 {
@@ -279,8 +279,8 @@ An updated list of all the acts associated with the user
 ### Delete an act associated with the user
 
 #### Request
-**DELETE** request to /acts/:actID
-A valid jwt token must be passed in the **Authorization** header
+**DELETE** request to /acts/:actID <br />
+A valid jwt token must be passed in the **Authorization** header <br />
 actID param must be a valid id number associated with the user and act
 
 #### Response
@@ -321,7 +321,7 @@ All contacts requets are made to /contacts
 ### Get all contacts for the user
 
 #### Request
-**GET** request to /contacts
+**GET** request to /contacts <br />
 A valid jwt token must be passed in the **Authorization** header
 
 #### Response
@@ -345,7 +345,7 @@ A valid jwt token must be passed in the **Authorization** header
 ### Add a new contact to the user
 
 #### Request
-**POST** request to /contacts
+**POST** request to /contacts <br />
 A valid jwt token must be passed in the **Authorization** header
 ```
 {
@@ -384,8 +384,8 @@ An updated list of all the contacts associated with the user
 ### Edit a contact associated with the user
 
 #### Request
-**PUT** request to /acts/:contactID
-A valid jwt token must be passed in the **Authorization** header
+**PUT** request to /acts/:contactID <br />
+A valid jwt token must be passed in the **Authorization** header <br />
 contactID param must be a valid id number associated with the user and contact
 ```
 {
@@ -424,8 +424,8 @@ An updated list of all the contacts associated with the user
 ### Delete a contact associated with the user
 
 #### Request
-**DELETE** request to /acts/:contactID
-A valid jwt token must be passed in the **Authorization** header
+**DELETE** request to /acts/:contactID <br />
+A valid jwt token must be passed in the **Authorization** header <br />
 contactID param must be a valid id number associated with the user and contact
 
 #### Response
