@@ -47,7 +47,7 @@ routes.post(paths.register, async (req, res) => {
             // return token and user info
             res.status(status.creationSuccess).json({ user, token });
           } catch (error) {
-            console.error(error);
+            res.status(status.serverError).json({ mesage: error });
           }
         } else {
           res.status(status.badRequest).json(messages.invalidPassword);
@@ -88,7 +88,7 @@ routes.post(paths.login, async (req, res) => {
         res.status(status.badCredentials).json(messages.invalidCredentials);
       }
     } catch (error) {
-      console.error(error);
+      res.status(status.serverError).json({ mesage: error });
     }
   } else {
     res.status(status.badRequest).json(messages.missingOnLogin);

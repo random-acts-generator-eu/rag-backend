@@ -25,7 +25,7 @@ routes.get('/', validateToken, async (req, res) => {
       res.status(status.badRequest).json(messages.userNoExist);
     }
   } catch (error) {
-    console.error(error);
+    res.status(status.serverError).json({ mesage: error });
   }
 });
 
@@ -57,7 +57,7 @@ routes.post('/', validateToken, async (req, res) => {
           res.status(status.badRequest).json(messages.userNoExist);
         }
       } catch (error) {
-        console.error(error);
+        res.status(status.serverError).json({ mesage: error });
       }
     } else {
       res.status(status.badRequest).json(messages.invalidLevelAct);
@@ -105,7 +105,7 @@ routes.put('/:actID', validateToken, async (req, res) => {
           res.status(status.badRequest).json(messages.userNoExist);
         }
       } catch (error) {
-        console.error(error);
+        res.status(status.serverError).json({ mesage: error });
       }
     } else {
       res.status(status.badRequest).json(messages.invalidLevelAct);
@@ -143,7 +143,7 @@ routes.delete('/:actID', validateToken, async (req, res) => {
       res.status(status.badRequest).json(messages.userNoExist);
     }
   } catch (error) {
-    console.error(error);
+    res.status(status.serverError).json({ mesage: error });
   }
 });
 

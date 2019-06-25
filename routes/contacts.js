@@ -25,7 +25,7 @@ routes.get('/', validateToken, async (req, res) => {
       res.status(status.badRequest).json(messages.userNoExist);
     }
   } catch (error) {
-    console.error(error);
+    res.status(status.serverError).json({ mesage: error });
   }
 });
 
@@ -61,7 +61,7 @@ routes.post('/', validateToken, async (req, res) => {
           res.status(status.badRequest).json(messages.userNoExist);
         }
       } catch (error) {
-        console.error(error);
+        res.status(status.serverError).json({ mesage: error });
       }
     } else {
       res.status(status.badRequest).json(messages.invalidLevelContact);
@@ -113,7 +113,7 @@ routes.put('/:contactID', validateToken, async (req, res) => {
           res.status(status.badRequest).json(messages.userNoExist);
         }
       } catch (error) {
-        console.error(error);
+        res.status(status.serverError).json({ mesage: error });
       }
     } else {
       res.status(status.badRequest).json(messages.invalidLevelContact);
@@ -151,7 +151,7 @@ routes.delete('/:contactID', validateToken, async (req, res) => {
       res.status(status.badRequest).json(messages.userNoExist);
     }
   } catch (error) {
-    console.error(error);
+    res.status(status.serverError).json({ mesage: error });
   }
 });
 
