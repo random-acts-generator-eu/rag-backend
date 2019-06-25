@@ -78,11 +78,60 @@ The full user object with a jwt token, acts array, and contacts array
 Note: New users are seeded with a set of 10 random acts, the jwt token returned must be used in all future requests
 
 ### Login
-TBC
+
 #### Request
-TBC
+**POST** to /auth/login
+```
+{
+	"email": "vinnyp@gmail.com",
+	"password": "vinnysecretpass"
+}
+```
+
 #### Response
-TBC
+The full user object with a jwt token, acts array, and contacts array
+```
+{
+    "user": {
+        "_id": "5d11e8340de332001740c4b3",
+        "first_name": "Vinny",
+        "last_name": "Peters",
+        "email": "vinnyp@gmail.com",
+        "phone": "07748439203",
+        "password": "$2a$10$Q.zWSthVmTf5866fhABh4e5ENEpfz58GU.GmPjh5HP3KSnqWoIvRe",
+        "acts": [
+            {
+                "_id": "5d11e8340de332001740c4bd",
+                "description": "Send them a handwritten letter or postcard",
+                "level": "Medium"
+            },
+            {
+                "_id": "5d11e8340de332001740c4bc",
+                "description": "Bake them some treats.",
+                "level": "Medium"
+            },
+            {
+                "_id": "5d11e8340de332001740c4bb",
+                "description": "Make them a playlist.",
+                "level": "Easy"
+            },
+            {
+                "_id": "5d11e8340de332001740c4ba",
+                "description": "Give them a hug.",
+                "level": "Easy"
+            },
+            {
+                "_id": "5d11e8340de332001740c4b9",
+                "description": "Take them to the movies.",
+                "level": "Medium"
+            }
+        ],
+        "contacts": [],
+        "__v": 0
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiNWQxMWU4MzQwZGUzMzIwMDE3NDBjNGIzIiwiZmlyc3ROYW1lIjoiVmlubnkiLCJlbWFpbCI6InZpbm55cEBnbWFpbC5jb20iLCJpYXQiOjE1NjE0NTQ2NDR9.9GuEWS8rbhsz6GRY4cRD0JOG8nFNJ64rzPt_c3hD3OU"
+}
+```
 
 ## Acts
 All acts requets are made to /acts
