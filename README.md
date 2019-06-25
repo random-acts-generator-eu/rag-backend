@@ -1,4 +1,4 @@
-# rag-backend
+# Random Acts Generator - API
 All API requests are made to: https://rag-eu.herokuapp.com
 
 ## Sanity Check
