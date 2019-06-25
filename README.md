@@ -139,6 +139,10 @@ The full user object with a jwt token, acts array, and contacts array
 }
 ```
 
+#### Errors
+401 - Invalid credentials - 'Please use valid login credentials' </br>
+401 - Missing on login -'Please include all required fields to login'
+
 ## Acts
 All acts requets are made to /acts
 
@@ -179,6 +183,9 @@ A list of all acts associated with the user
     }
 ]
 ```
+
+#### Errors
+401 - User no exist - 'User with this token does not exist'
 
 ### Add a new act to the user
 
@@ -230,6 +237,10 @@ An updated list of all the acts associated with the user
 ]
 ```
 
+#### Errors
+401 - User no exist - 'User with this token does not exist' </br>
+401 - Invalid level act - 'Please include a valid level for the act: easy, medium, or hard' </br>
+401 - Missing on post act - 'Please include a description and level to add a new act'
 
 ### Edit an act associated with the user
 
@@ -282,6 +293,12 @@ An updated list of all the acts associated with the user
 ]
 ```
 
+#### Errors
+401 - Act no exist - 'Act with this ID does not exist' </br>
+401 - User no exist - 'User with this token does not exist' </br>
+401 - Invalid level act - 'Please include a valid level for the act: easy, medium, or hard' </br>
+401 - Missing on put act - 'Please include a description or level to update an act'
+
 ### Delete an act associated with the user
 
 #### Request
@@ -320,6 +337,10 @@ An updated list of all the acts associated with the user
     }
 ]
 ```
+
+#### Errors
+401 - Act no exist - 'Act with this ID does not exist' </br>
+401 - User no exist - 'User with this token does not exist'
 
 ## Contacts
 All contacts requets are made to /contacts
