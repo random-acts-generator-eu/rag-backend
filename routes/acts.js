@@ -52,7 +52,7 @@ routes.post('/', validateToken, async (req, res) => {
           // pull the updated user from the database
           const updatedUser = await models.User.findById(payload);
           // return the update users acts array
-          res.status(status.goodRequest).json(updatedUser.acts);
+          res.status(status.creationSuccess).json(updatedUser.acts);
         } else {
           res.status(status.badRequest).json(messages.userNoExist);
         }
