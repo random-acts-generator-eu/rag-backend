@@ -369,6 +369,9 @@ A valid jwt token must be passed in the **Authorization** header
 ]
 ```
 
+#### Errors
+401 - User no exist - 'User with this token does not exist'
+
 ### Add a new contact to the user
 
 #### Request
@@ -407,6 +410,11 @@ An updated list of all the contacts associated with the user
     }
 ]
 ```
+
+#### Errors
+401 - User no exist - 'User with this token does not exist' </br>
+401 - Invalid level contact - 'Please include a valid level for the contact: friend, close friend, or best friend' </br>
+401 - Missing on post contact - 'Please include a firstName, lastName, and level to add a new act'
 
 ### Edit a contact associated with the user
 
@@ -448,6 +456,12 @@ An updated list of all the contacts associated with the user
 ]
 ```
 
+#### Errors
+401 - Contact no exist - 'Contact with this ID does not exist' </br>
+401 - User no exist - 'User with this token does not exist' </br>
+401 - Invalid level contact - 'Please include a valid level for the contact: friend, close friend, or best friend' </br>
+401 - Missing on put contact - 'Please include a firstName, lastName or level to update a contact'
+
 ### Delete a contact associated with the user
 
 #### Request
@@ -473,3 +487,7 @@ An updated list of all the contacts associated with the user
     }
 ]
 ```
+
+#### Errors
+401 - Contact no exist - 'Contact with this ID does not exist' </br>
+401 - User no exist - 'User with this token does not exist'
