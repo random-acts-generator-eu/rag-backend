@@ -507,7 +507,7 @@ A valid jwt token must be passed in the **Authorization** header
 }
 ```
 
-#### Response 200
+#### Response 201
 ```
 "Hi, hope you have a great day"
 ```
