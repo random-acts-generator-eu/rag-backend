@@ -491,3 +491,32 @@ An updated list of all the contacts associated with the user
 #### Errors
 401 - Contact no exist - 'Contact with this ID does not exist' </br>
 401 - User no exist - 'User with this token does not exist'
+
+## Sms
+All sms requets are made to /sms
+
+### Send an sms to a random user on the app
+
+#### Request
+**POST** request to /sms <br />
+A valid jwt token must be passed in the **Authorization** header
+```
+{
+	"message": "Hi, hope you have a great day"
+}
+```
+
+#### Response 200
+```
+"Hi, hope you have a great day"
+```
+
+#### Errors - direct from the Twilio API
+```
+{
+    "status": 400,
+    "message": "The 'To' number 98349234924 is not a valid phone number.",
+    "code": 21211,
+    "moreInfo": "https://www.twilio.com/docs/errors/21211"
+}
+```
