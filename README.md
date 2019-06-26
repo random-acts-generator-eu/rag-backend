@@ -512,7 +512,7 @@ A valid jwt token must be passed in the **Authorization** header
 "Hi, hope you have a great day"
 ```
 
-#### Errors - direct from the Twilio API
+#### Errors (direct from the Twilio API)
 ```
 {
     "status": 400,
