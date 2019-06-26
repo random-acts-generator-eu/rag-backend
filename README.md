@@ -5,7 +5,7 @@ This API utilises Twilio: https://www.twilio.com/
 ## Sanity Check
 
 #### Request
-**GET** request to /
+**GET** request to **/**
 
 #### Response 200
 ```
@@ -15,12 +15,12 @@ This API utilises Twilio: https://www.twilio.com/
 ```
 
 ## Auth
-All auth requets are made to /auth
+All auth requets are made to **/auth**
 
 ### Register
 
 #### Request
-**POST** to /auth/register
+**POST** to **/auth/register**
 ```
 {
 	"firstName": "Vinny",
@@ -87,7 +87,7 @@ Note: New users are seeded with a set of 10 random acts, the jwt token returned 
 ### Login
 
 #### Request
-**POST** to /auth/login
+**POST** to **/auth/login**
 ```
 {
 	"email": "vinnyp@gmail.com",
@@ -145,12 +145,12 @@ The full user object with a jwt token, acts array, and contacts array
 401 - Missing on login -'Please include all required fields to login'
 
 ## Acts
-All acts requets are made to /acts
+All acts requets are made to **/acts**
 
 ### Get all acts for the user
 
 #### Request
-**GET** request to /acts <br />
+**GET** request to **/acts** <br />
 A valid jwt token must be passed in the **Authorization** header
 
 #### Response 200
@@ -191,7 +191,7 @@ A list of all acts associated with the user
 ### Add a new act to the user
 
 #### Request
-**POST** request to /acts <br />
+**POST** request to **/acts** <br />
 A valid jwt token must be passed in the **Authorization** header
 ```
 {
@@ -246,7 +246,7 @@ An updated list of all the acts associated with the user
 ### Edit an act associated with the user
 
 #### Request
-**PUT** request to /acts/:actID <br />
+**PUT** request to **/acts/:actID** <br />
 A valid jwt token must be passed in the **Authorization** header <br />
 actID param must be a valid id number associated with the user and act
 ```
@@ -303,7 +303,7 @@ An updated list of all the acts associated with the user
 ### Delete an act associated with the user
 
 #### Request
-**DELETE** request to /acts/:actID <br />
+**DELETE** request to **/acts/:actID** <br />
 A valid jwt token must be passed in the **Authorization** header <br />
 actID param must be a valid id number associated with the user and act
 
@@ -344,12 +344,12 @@ An updated list of all the acts associated with the user
 401 - User no exist - 'User with this token does not exist'
 
 ## Contacts
-All contacts requets are made to /contacts
+All contacts requets are made to **/contacts**
 
 ### Get all contacts for the user
 
 #### Request
-**GET** request to /contacts <br />
+**GET** request to **/contacts** <br />
 A valid jwt token must be passed in the **Authorization** header
 
 #### Response 200
@@ -376,7 +376,7 @@ A valid jwt token must be passed in the **Authorization** header
 ### Add a new contact to the user
 
 #### Request
-**POST** request to /contacts <br />
+**POST** request to **/contacts** <br />
 A valid jwt token must be passed in the **Authorization** header
 ```
 {
@@ -420,7 +420,7 @@ An updated list of all the contacts associated with the user
 ### Edit a contact associated with the user
 
 #### Request
-**PUT** request to /contacts/:contactID <br />
+**PUT** request to **/contacts/:contactID** <br />
 A valid jwt token must be passed in the **Authorization** header <br />
 contactID param must be a valid id number associated with the user and contact
 ```
@@ -466,7 +466,7 @@ An updated list of all the contacts associated with the user
 ### Delete a contact associated with the user
 
 #### Request
-**DELETE** request to /contacts/:contactID <br />
+**DELETE** request to **/contacts/:contactID** <br />
 A valid jwt token must be passed in the **Authorization** header <br />
 contactID param must be a valid id number associated with the user and contact
 
@@ -494,12 +494,12 @@ An updated list of all the contacts associated with the user
 401 - User no exist - 'User with this token does not exist'
 
 ## Sms
-All sms requets are made to /sms
+All sms requests are made to **/sms**
 
 ### Send an sms to a random user on the app
 
 #### Request
-**POST** request to /sms <br />
+**POST** request to **/** <br />
 A valid jwt token must be passed in the **Authorization** header
 ```
 {
