@@ -56,6 +56,9 @@ const messages = {
     message:
       'A user with this email address already exists, please use another',
   },
+  noMessage: {
+    message: 'Message length cannot be blank',
+  },
 };
 
 module.exports = messages;
