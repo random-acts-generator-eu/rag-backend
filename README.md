@@ -1,5 +1,6 @@
 # Random Acts Generator - API
 All API requests are made to: https://rag-eu.herokuapp.com
+This API utilises Twilio: https://www.twilio.com/
 
 ## Sanity Check
 
