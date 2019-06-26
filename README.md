@@ -353,6 +353,7 @@ All contacts requets are made to **/contacts**
 A valid jwt token must be passed in the **Authorization** header
 
 #### Response 200
+A list of all contacts associated with the user
 ```
 [
     {
@@ -508,6 +509,7 @@ A valid jwt token must be passed in the **Authorization** header
 ```
 
 #### Response 201
+The message body sucesfully sent via sms
 ```
 "Hi, hope you have a great day"
 ```
