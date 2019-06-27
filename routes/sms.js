@@ -1,6 +1,5 @@
 const express = require('express');
 
-const paths = require('../utils/paths');
 const { models } = require('../model/index');
 const status = require('../utils/status');
 const messages = require('../utils/messages');
@@ -33,7 +32,7 @@ routes.post('/', validateToken, async (req, res) => {
         // send the message via Twilio
         const sendRes = await sendSMS(receiverPhone, message);
         if (sendRes.sid) {
-          res.status(status.goodRequest).json(message);
+          res.status(status.creationSuccess).json(message);
         }
       } else {
         res.status(status.badRequest).json(messages.userNoExist);

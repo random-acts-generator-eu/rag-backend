@@ -81,7 +81,6 @@ routes.put('/:contactID', validateToken, async (req, res) => {
   const { contactID } = req.params;
   const { firstName, lastName, level } = req.body;
   const levels = ['Friend', 'Close Friend', 'Best Friend'];
-
   if (firstName || lastName || level) {
     if (!level || levels.includes(capitalize(level))) {
       try {
@@ -131,7 +130,6 @@ Receive: updated array of contacts for the user
 routes.delete('/:contactID', validateToken, async (req, res) => {
   const { payload } = req.decodedToken;
   const { contactID } = req.params;
-
   try {
     // check if the user exists
     const user = await models.User.findById(payload);
