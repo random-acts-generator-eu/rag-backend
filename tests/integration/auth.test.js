@@ -1,4 +1,3 @@
-const assert = require('assert');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const should = chai.should();
@@ -14,7 +13,6 @@ const status = require('../../utils/status');
 chai.use(chaiHttp);
 
 describe('/api/auth', () => {
-  let connection;
   let db;
 
   before(async () => {
@@ -22,6 +20,13 @@ describe('/api/auth', () => {
       useNewUrlParser: true,
     });
     db = mongoose.model('Users', {});
+    await db.deleteMany({});
+  });
+
+  after(async () => {
+    connection = await mongoose.connect(process.env.TEST_DATBASE_URL, {
+      useNewUrlParser: true,
+    });
     await db.deleteMany({});
   });
 
