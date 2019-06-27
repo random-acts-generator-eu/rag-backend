@@ -1,4 +1,4 @@
-const authTestResources = {
+const authResources = {
   invalidEmailUser: {
     firstName: 'Ben',
     lastName: 'Humes',
@@ -43,4 +43,4 @@ const authTestResources = {
   },
 };
 
-module.exports = authTestResources;
+module.exports = authResources;

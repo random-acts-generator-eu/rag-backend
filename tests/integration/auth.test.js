@@ -5,7 +5,7 @@ const server = require('../../api/server');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const authTestResources = require('./authTestResources');
+const authResources = require('./authResources');
 const paths = require('../../utils/paths');
 const messages = require('../../utils/messages');
 const status = require('../../utils/status');
@@ -46,7 +46,7 @@ describe('/api/auth', () => {
       const res = await chai
         .request(server)
         .post(`${paths.auth}${paths.register}`)
-        .send(authTestResources.invalidEmailUser);
+        .send(authResources.invalidEmailUser);
       res.should.have.status(status.badRequest);
       res.text.should.equal(JSON.stringify(messages.invalidEmail));
     });
@@ -57,12 +57,12 @@ describe('/api/auth', () => {
       await chai
         .request(server)
         .post(`${paths.auth}${paths.register}`)
-        .send(authTestResources.newUser);
+        .send(authResources.newUser);
 
       const res = await chai
         .request(server)
         .post(`${paths.auth}${paths.register}`)
-        .send(authTestResources.duplicateEmailUser);
+        .send(authResources.duplicateEmailUser);
       res.should.have.status(status.badRequest);
       res.text.should.equal(JSON.stringify(messages.userAlreadyExists));
     });
@@ -73,7 +73,7 @@ describe('/api/auth', () => {
       const res = await chai
         .request(server)
         .post(`${paths.auth}${paths.register}`)
-        .send(authTestResources.invalidPasswordUser);
+        .send(authResources.invalidPasswordUser);
       res.should.have.status(status.badRequest);
       res.text.should.equal(JSON.stringify(messages.invalidPassword));
     });
@@ -84,10 +84,10 @@ describe('/api/auth', () => {
       const res = await chai
         .request(server)
         .post(`${paths.auth}${paths.register}`)
-        .send(authTestResources.sucessfulUser);
+        .send(authResources.sucessfulUser);
       res.should.have.status(status.creationSuccess);
       res.body.user.first_name.should.equal(
-        authTestResources.sucessfulUser.firstName,
+        authResources.sucessfulUser.firstName,
       );
     });
   });
@@ -97,9 +97,9 @@ describe('/api/auth', () => {
       const res = await chai
         .request(server)
         .post(`${paths.auth}${paths.register}`)
-        .send(authTestResources.sucessfulUserPassword);
+        .send(authResources.sucessfulUserPassword);
       res.body.user.password.should.not.equal(
-        authTestResources.sucessfulUserPassword.password,
+        authResources.sucessfulUserPassword.password,
       );
     });
   });
