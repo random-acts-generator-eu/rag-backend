@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const authResources = require('./authResources');
-const actsResources = require('./actsResources');
+const contactsResources = require('./contactsResources');
 const paths = require('../../utils/paths');
 const messages = require('../../utils/messages');
 const status = require('../../utils/status');
@@ -16,13 +16,13 @@ const request = chai.request;
 const should = chai.should();
 const expect = chai.expect;
 
-describe('/acts', () => {
+describe('/contacts', () => {
   let db;
   before(async () => {
     connection = await mongoose.connect(process.env.TEST_DATBASE_URL, {
       useNewUrlParser: true,
     });
-    db = mongoose.model('Acts', {});
+    db = mongoose.model('Contacts', {});
     await db.deleteMany({});
   });
 
@@ -32,16 +32,16 @@ describe('/acts', () => {
     });
     await db.deleteMany({});
   });
-  // acts [GET] endpoint tests
-  describe('[GET] /acts', () => {
+  // contacts [GET] endpoint tests
+  describe('[GET] /contacts', () => {
     it('returns error when a request is made without a token in the Authorization header', async () => {
-      const res = await request(server).get(`${paths.acts}`);
+      const res = await request(server).get(`${paths.contacts}`);
       res.should.have.status(status.badCredentials);
       res.body.message.should.equal(messages.noToken.message);
     });
     it('returns error when a request is made with an invalid token', async () => {
       const res = await request(server)
-        .get(`${paths.acts}`)
+        .get(`${paths.contacts}`)
         .set(
           authResources.invalidToken.header,
           authResources.invalidToken.entry,
@@ -52,7 +52,7 @@ describe('/acts', () => {
     it('returns correct response when a valid get request is made', async () => {
       const newUser = await request(server)
         .post(`${paths.auth}${paths.register}`)
-        .send(actsResources.actsUserGet);
+        .send(contactsResources.contactsUserGet);
       const res = await request(server)
         .get(`${paths.acts}`)
         .set(authResources.validToken.header, newUser.body.token);
@@ -60,16 +60,16 @@ describe('/acts', () => {
       res.body[0].description.should.equal(actsSeed[0].description);
     });
   });
-  // acts [POST] endpoint tests
-  describe('[POST] /acts', () => {
+  // contacts [POST] endpoint tests
+  describe('[POST] /contacts', () => {
     it('returns error when a request is made without a token in the Authorization header', async () => {
-      const res = await request(server).post(`${paths.acts}`);
+      const res = await request(server).post(`${paths.contacts}`);
       res.should.have.status(status.badCredentials);
       res.body.message.should.equal(messages.noToken.message);
     });
     it('returns error when a request is made with an invalid token', async () => {
       const res = await request(server)
-        .post(`${paths.acts}`)
+        .post(`${paths.contacts}`)
         .set(
           authResources.invalidToken.header,
           authResources.invalidToken.entry,
@@ -80,50 +80,50 @@ describe('/acts', () => {
     it('returns error when a request is made without all required fields', async () => {
       const newUser = await request(server)
         .post(`${paths.auth}${paths.register}`)
-        .send(actsResources.actsUserPost);
+        .send(contactsResources.contactsUserPost);
       const res = await request(server)
-        .post(`${paths.acts}`)
+        .post(`${paths.contacts}`)
         .set(authResources.validToken.header, newUser.body.token);
       res.should.have.status(status.badRequest);
-      res.body.message.should.equal(messages.missingOnPostAct.message);
+      res.body.message.should.equal(messages.missingOnPostContact.message);
     });
     it('returns error when a request is made with an invalid level', async () => {
       const newUser = await request(server)
         .post(`${paths.auth}${paths.register}`)
-        .send(actsResources.actsUserPostTwo);
+        .send(contactsResources.contactsUserPostTwo);
       const res = await request(server)
-        .post(`${paths.acts}`)
+        .post(`${paths.contacts}`)
         .set(authResources.validToken.header, newUser.body.token)
-        .send(actsResources.invalidActLevel);
+        .send(contactsResources.invalidContactLevel);
       res.should.have.status(status.badRequest);
-      res.body.message.should.equal(messages.invalidLevelAct.message);
+      res.body.message.should.equal(messages.invalidLevelContact.message);
     });
     it('returns correct response when a valid post request is made', async () => {
       const newUser = await request(server)
         .post(`${paths.auth}${paths.register}`)
-        .send(actsResources.actsUserPostThree);
+        .send(contactsResources.contactsUserPostThree);
       const res = await request(server)
-        .post(`${paths.acts}`)
+        .post(`${paths.contacts}`)
         .set(authResources.validToken.header, newUser.body.token)
-        .send(actsResources.validAct);
+        .send(contactsResources.validContact);
       res.should.have.status(status.creationSuccess);
-      res.body[res.body.length - 1].description.should.equal(
-        actsResources.validAct.description,
+      res.body[res.body.length - 1].first_name.should.equal(
+        contactsResources.validContact.firstName,
       );
     });
   });
-  // acts [PUT] endpoint tests
-  describe('[PUT] /acts', () => {
+  // contacts [PUT] endpoint tests
+  describe('[PUT] /contacts', () => {
     it('returns error when a request is made without a token in the Authorization header', async () => {
       const res = await request(server).put(
-        `${paths.acts}/${actsResources.invalidAct.id}`,
+        `${paths.contacts}/${contactsResources.invalidContact.id}`,
       );
       res.should.have.status(status.badCredentials);
       res.body.message.should.equal(messages.noToken.message);
     });
     it('returns error when a request is made with an invalid token', async () => {
       const res = await request(server)
-        .put(`${paths.acts}/${actsResources.invalidAct.id}`)
+        .put(`${paths.contacts}/${contactsResources.invalidContact.id}`)
         .set(
           authResources.invalidToken.header,
           authResources.invalidToken.entry,
@@ -134,59 +134,65 @@ describe('/acts', () => {
     it('returns error when a request is made without all required fields', async () => {
       const newUser = await request(server)
         .post(`${paths.auth}${paths.register}`)
-        .send(actsResources.actsUserPutOne);
+        .send(contactsResources.contactsUserPutOne);
       const res = await request(server)
-        .put(`${paths.acts}/${actsResources.invalidAct.id}`)
+        .put(`${paths.contacts}/${contactsResources.invalidContact.id}`)
         .set(authResources.validToken.header, newUser.body.token);
       res.should.have.status(status.badRequest);
-      res.body.message.should.equal(messages.missingOnPutAct.message);
+      res.body.message.should.equal(messages.missingOnPutContact.message);
     });
     it('returns error when a request is made with an invalid level', async () => {
       const newUser = await request(server)
         .post(`${paths.auth}${paths.register}`)
-        .send(actsResources.actsUserPutTwo);
+        .send(contactsResources.contactsUserPutTwo);
       const res = await request(server)
-        .put(`${paths.acts}/${actsResources.invalidAct.id}`)
+        .put(`${paths.contacts}/${contactsResources.invalidContact.id}`)
         .set(authResources.validToken.header, newUser.body.token)
-        .send(actsResources.invalidAct);
+        .send(contactsResources.invalidContact);
       res.should.have.status(status.badRequest);
-      res.body.message.should.equal(messages.invalidLevelAct.message);
+      res.body.message.should.equal(messages.invalidLevelContact.message);
     });
-    it('returns error when a request is made with an invalid actID', async () => {
+    it('returns error when a request is made with an invalid contactID', async () => {
       const newUser = await request(server)
         .post(`${paths.auth}${paths.register}`)
-        .send(actsResources.actsUserPutThree);
+        .send(contactsResources.contactsUserPutThree);
       const res = await request(server)
-        .put(`${paths.acts}/${actsResources.invalidAct.id}`)
+        .put(`${paths.contacts}/${contactsResources.invalidContact.id}`)
         .set(authResources.validToken.header, newUser.body.token)
-        .send(actsResources.validAct);
+        .send(contactsResources.validContact);
       res.should.have.status(status.badRequest);
-      res.body.message.should.equal(messages.actNoExist.message);
+      res.body.message.should.equal(messages.contactNoExist.message);
     });
     it('returns correct response when a valid put request is made', async () => {
       const newUser = await request(server)
         .post(`${paths.auth}${paths.register}`)
-        .send(actsResources.actsUserPutFour);
-      const res = await request(server)
-        .put(`${paths.acts}/${newUser.body.user.acts[0]._id}`)
+        .send(contactsResources.contactsUserPutFour);
+      const newContact = await request(server)
+        .post(`${paths.contacts}`)
         .set(authResources.validToken.header, newUser.body.token)
-        .send(actsResources.validAct);
+        .send(contactsResources.validContact);
+      const res = await request(server)
+        .put(`${paths.contacts}/${newContact.body[0]._id}`)
+        .set(authResources.validToken.header, newUser.body.token)
+        .send(contactsResources.validContactPut);
       res.should.have.status(status.goodRequest);
-      res.body[0].description.should.equal(actsResources.validAct.description);
+      res.body[0].first_name.should.equal(
+        contactsResources.validContactPut.firstName,
+      );
     });
   });
-  // acts [DELETE] endpoint tests
-  describe('[DELETE] /acts', () => {
+  // contacts [DELETE] endpoint tests
+  describe('[DELETE] /contacts', () => {
     it('returns error when a request is made without a token in the Authorization header', async () => {
       const res = await request(server).delete(
-        `${paths.acts}/${actsResources.invalidAct.id}`,
+        `${paths.contacts}/${contactsResources.invalidContact.id}`,
       );
       res.should.have.status(status.badCredentials);
       res.body.message.should.equal(messages.noToken.message);
     });
     it('returns error when a request is made with an invalid token', async () => {
       const res = await request(server)
-        .delete(`${paths.acts}/${actsResources.invalidAct.id}`)
+        .delete(`${paths.contacts}/${contactsResources.invalidContact.id}`)
         .set(
           authResources.invalidToken.header,
           authResources.invalidToken.entry,
@@ -194,26 +200,30 @@ describe('/acts', () => {
       res.should.have.status(status.badCredentials);
       res.body.message.should.equal(messages.invalidToken.message);
     });
-    it('returns error when a request is made with an invalid actID', async () => {
+    it('returns error when a request is made with an invalid contactID', async () => {
       const newUser = await request(server)
         .post(`${paths.auth}${paths.register}`)
-        .send(actsResources.actsUserDelOne);
+        .send(contactsResources.contactsUserDelOne);
       const res = await request(server)
-        .delete(`${paths.acts}/${actsResources.invalidAct.id}`)
+        .delete(`${paths.contacts}/${contactsResources.invalidContact.id}`)
         .set(authResources.validToken.header, newUser.body.token)
-        .send(actsResources.validAct);
+        .send(contactsResources.validContact);
       res.should.have.status(status.badRequest);
-      res.body.message.should.equal(messages.actNoExist.message);
+      res.body.message.should.equal(messages.contactNoExist.message);
     });
     it('returns correct response when a valid delete request is made', async () => {
       const newUser = await request(server)
         .post(`${paths.auth}${paths.register}`)
-        .send(actsResources.actsUserDelTwo);
+        .send(contactsResources.contactsUserDelTwo);
+      const newContact = await request(server)
+        .post(`${paths.contacts}`)
+        .set(authResources.validToken.header, newUser.body.token)
+        .send(contactsResources.validContact);
       const res = await request(server)
-        .delete(`${paths.acts}/${newUser.body.user.acts[0]._id}`)
+        .delete(`${paths.contacts}/${newContact.body[0]._id}`)
         .set(authResources.validToken.header, newUser.body.token);
       res.should.have.status(status.goodRequest);
-      expect(res.body).to.have.length(newUser.body.user.acts.length - 1);
+      expect(res.body).to.have.length(newContact.body.length - 1);
     });
   });
 });
