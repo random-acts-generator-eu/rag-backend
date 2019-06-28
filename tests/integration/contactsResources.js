@@ -79,6 +79,10 @@ const contactsResources = {
     lastName: 'Humes',
     level: 'Close Friend',
   },
+  validContactPut: {
+    firstName: 'Geoff',
+    level: 'Best Friend',
+  },
   invalidContact: {
     id: 123,
     level: 'Beep',

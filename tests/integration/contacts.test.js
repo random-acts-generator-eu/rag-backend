@@ -112,4 +112,73 @@ describe('/contacts', () => {
       );
     });
   });
+  // contacts [POST] endpoint tests
+  describe('[PUT] /contacts', () => {
+    it('returns error when a request is made without a token in the Authorization header', async () => {
+      const res = await request(server).put(
+        `${paths.contacts}/${contactsResources.invalidContact.id}`,
+      );
+      res.should.have.status(status.badCredentials);
+      res.body.message.should.equal(messages.noToken.message);
+    });
+    it('returns error when a request is made with an invalid token', async () => {
+      const res = await request(server)
+        .put(`${paths.contacts}/${contactsResources.invalidContact.id}`)
+        .set(
+          authResources.invalidToken.header,
+          authResources.invalidToken.entry,
+        );
+      res.should.have.status(status.badCredentials);
+      res.body.message.should.equal(messages.invalidToken.message);
+    });
+    it('returns error when a request is made without all required fields', async () => {
+      const newUser = await request(server)
+        .post(`${paths.auth}${paths.register}`)
+        .send(contactsResources.contactsUserPutOne);
+      const res = await request(server)
+        .put(`${paths.contacts}/${contactsResources.invalidContact.id}`)
+        .set(authResources.validToken.header, newUser.body.token);
+      res.should.have.status(status.badRequest);
+      res.body.message.should.equal(messages.missingOnPutContact.message);
+    });
+    it('returns error when a request is made with an invalid level', async () => {
+      const newUser = await request(server)
+        .post(`${paths.auth}${paths.register}`)
+        .send(contactsResources.contactsUserPutTwo);
+      const res = await request(server)
+        .put(`${paths.contacts}/${contactsResources.invalidContact.id}`)
+        .set(authResources.validToken.header, newUser.body.token)
+        .send(contactsResources.invalidContact);
+      res.should.have.status(status.badRequest);
+      res.body.message.should.equal(messages.invalidLevelContact.message);
+    });
+    it('returns error when a request is made with an invalid contactID', async () => {
+      const newUser = await request(server)
+        .post(`${paths.auth}${paths.register}`)
+        .send(contactsResources.contactsUserPutThree);
+      const res = await request(server)
+        .put(`${paths.contacts}/${contactsResources.invalidContact.id}`)
+        .set(authResources.validToken.header, newUser.body.token)
+        .send(contactsResources.validContact);
+      res.should.have.status(status.badRequest);
+      res.body.message.should.equal(messages.contactNoExist.message);
+    });
+    it('returns correct response when a valid put request is made', async () => {
+      const newUser = await request(server)
+        .post(`${paths.auth}${paths.register}`)
+        .send(contactsResources.contactsUserPutFour);
+      const newContact = await request(server)
+        .post(`${paths.contacts}`)
+        .set(authResources.validToken.header, newUser.body.token)
+        .send(contactsResources.validContact);
+      const res = await request(server)
+        .put(`${paths.contacts}/${newContact.body[0]._id}`)
+        .set(authResources.validToken.header, newUser.body.token)
+        .send(contactsResources.validContactPut);
+      res.should.have.status(status.goodRequest);
+      res.body[0].first_name.should.equal(
+        contactsResources.validContactPut.firstName,
+      );
+    });
+  });
 });
