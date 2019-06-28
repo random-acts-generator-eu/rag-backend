@@ -27,13 +27,45 @@ const actsResources = {
     phone: '+44755673872',
     password: 'password',
   },
-  invalidActsLevel: {
+  actsUserPutOne: {
+    firstName: 'James',
+    lastName: 'Danty',
+    email: 'james@gmail.com',
+    phone: '+44755673872',
+    password: 'password',
+  },
+  actsUserPutTwo: {
+    firstName: 'James',
+    lastName: 'Danty',
+    email: 'jamesd@gmail.com',
+    phone: '+44755673872',
+    password: 'password',
+  },
+  actsUserPutThree: {
+    firstName: 'James',
+    lastName: 'Danty',
+    email: 'jamesda@gmail.com',
+    phone: '+44755673872',
+    password: 'password',
+  },
+  actsUserPutFour: {
+    firstName: 'James',
+    lastName: 'Danty',
+    email: 'jamesdan@gmail.com',
+    phone: '+44755673872',
+    password: 'password',
+  },
+  invalidActLevel: {
     description: 'Wash their car',
     level: 'Beep',
   },
   validAct: {
     description: 'Wash their car',
     level: 'Easy',
+  },
+  invalidAct: {
+    id: 123,
+    level: 'Beep'
   },
 };
 
