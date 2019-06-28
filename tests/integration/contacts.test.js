@@ -112,7 +112,7 @@ describe('/contacts', () => {
       );
     });
   });
-  // contacts [POST] endpoint tests
+  // contacts [PUT] endpoint tests
   describe('[PUT] /contacts', () => {
     it('returns error when a request is made without a token in the Authorization header', async () => {
       const res = await request(server).put(
@@ -179,6 +179,51 @@ describe('/contacts', () => {
       res.body[0].first_name.should.equal(
         contactsResources.validContactPut.firstName,
       );
+    });
+  });
+  // contacts [DELETE] endpoint tests
+  describe('[DELETE] /contacts', () => {
+    it('returns error when a request is made without a token in the Authorization header', async () => {
+      const res = await request(server).delete(
+        `${paths.contacts}/${contactsResources.invalidContact.id}`,
+      );
+      res.should.have.status(status.badCredentials);
+      res.body.message.should.equal(messages.noToken.message);
+    });
+    it('returns error when a request is made with an invalid token', async () => {
+      const res = await request(server)
+        .delete(`${paths.contacts}/${contactsResources.invalidContact.id}`)
+        .set(
+          authResources.invalidToken.header,
+          authResources.invalidToken.entry,
+        );
+      res.should.have.status(status.badCredentials);
+      res.body.message.should.equal(messages.invalidToken.message);
+    });
+    it('returns error when a request is made with an invalid contactID', async () => {
+      const newUser = await request(server)
+        .post(`${paths.auth}${paths.register}`)
+        .send(contactsResources.contactsUserDelOne);
+      const res = await request(server)
+        .delete(`${paths.contacts}/${contactsResources.invalidContact.id}`)
+        .set(authResources.validToken.header, newUser.body.token)
+        .send(contactsResources.validContact);
+      res.should.have.status(status.badRequest);
+      res.body.message.should.equal(messages.contactNoExist.message);
+    });
+    it('returns correct response when a valid delete request is made', async () => {
+      const newUser = await request(server)
+        .post(`${paths.auth}${paths.register}`)
+        .send(contactsResources.contactsUserDelTwo);
+      const newContact = await request(server)
+        .post(`${paths.contacts}`)
+        .set(authResources.validToken.header, newUser.body.token)
+        .send(contactsResources.validContact);
+      const res = await request(server)
+        .delete(`${paths.contacts}/${newContact.body[0]._id}`)
+        .set(authResources.validToken.header, newUser.body.token);
+      res.should.have.status(status.goodRequest);
+      expect(res.body).to.have.length(newContact.body.length - 1);
     });
   });
 });
