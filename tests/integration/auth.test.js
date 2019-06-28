@@ -14,7 +14,6 @@ chai.use(chaiHttp);
 
 describe('/api/auth', () => {
   let db;
-
   before(async () => {
     connection = await mongoose.connect(process.env.TEST_DATBASE_URL, {
       useNewUrlParser: true,
@@ -52,7 +51,6 @@ describe('/api/auth', () => {
         .request(server)
         .post(`${paths.auth}${paths.register}`)
         .send(authResources.newUser);
-
       const res = await chai
         .request(server)
         .post(`${paths.auth}${paths.register}`)
@@ -85,6 +83,47 @@ describe('/api/auth', () => {
         .send(authResources.sucessfulPasswordUser);
       res.body.user.password.should.not.equal(
         authResources.sucessfulPasswordUser.password,
+      );
+    });
+  });
+
+  describe('[POST] /login', () => {
+    it('returns error when a request is made without all required fields', async () => {
+      const res = await chai
+        .request(server)
+        .post(`${paths.auth}${paths.login}`)
+        .send({
+          email: authResources.newUser.email,
+        });
+      res.should.have.status(status.badRequest);
+      res.body.message.should.equal(messages.missingOnLogin.message);
+    });
+    it('returns error when a request is made with invalid login credentials', async () => {
+      const res = await chai
+        .request(server)
+        .post(`${paths.auth}${paths.login}`)
+        .send({
+          email: authResources.newUser.email,
+          password: authResources.invalidPasswordUser.password,
+        });
+      res.should.have.status(status.badCredentials);
+      res.body.message.should.equal(messages.invalidCredentials.message);
+    });
+    it('returns response when a valid login request is made', async () => {
+      await chai
+        .request(server)
+        .post(`${paths.auth}${paths.register}`)
+        .send(authResources.sucessfulUser);
+      const res = await chai
+        .request(server)
+        .post(`${paths.auth}${paths.login}`)
+        .send({
+          email: authResources.sucessfulUser.email,
+          password: authResources.sucessfulUser.password,
+        });
+      res.should.have.status(status.goodRequest);
+      res.body.user.first_name.should.equal(
+        authResources.sucessfulUser.firstName,
       );
     });
   });
