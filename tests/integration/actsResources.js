@@ -55,6 +55,20 @@ const actsResources = {
     phone: '+44755673872',
     password: 'password',
   },
+  actsUserDelOne: {
+    firstName: 'Horace',
+    lastName: 'Matthews',
+    email: 'horrace@gmail.com',
+    phone: '+44755673872',
+    password: 'password',
+  },
+  actsUserDelTwo: {
+    firstName: 'Horrace',
+    lastName: 'Matthews',
+    email: 'horracem@gmail.com',
+    phone: '+44755673872',
+    password: 'password',
+  },
   invalidActLevel: {
     description: 'Wash their car',
     level: 'Beep',
@@ -65,7 +79,7 @@ const actsResources = {
   },
   invalidAct: {
     id: 123,
-    level: 'Beep'
+    level: 'Beep',
   },
 };
 

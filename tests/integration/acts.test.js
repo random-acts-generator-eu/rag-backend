@@ -14,6 +14,7 @@ const actsSeed = require('../../data/actsSeed');
 chai.use(chaiHttp);
 const request = chai.request;
 const should = chai.should();
+const expect = chai.expect;
 
 describe('/api/auth', () => {
   let db;
@@ -97,7 +98,7 @@ describe('/api/auth', () => {
       res.should.have.status(status.badRequest);
       res.body.message.should.equal(messages.invalidLevelAct.message);
     });
-    it('returns correct response when a valid get request is made', async () => {
+    it('returns correct response when a valid post request is made', async () => {
       const newUser = await request(server)
         .post(`${paths.auth}${paths.register}`)
         .send(actsResources.actsUserPostThree);
@@ -162,7 +163,7 @@ describe('/api/auth', () => {
       res.should.have.status(status.badRequest);
       res.body.message.should.equal(messages.actNoExist.message);
     });
-    it('returns correct response when a valid get request is made', async () => {
+    it('returns correct response when a valid put request is made', async () => {
       const newUser = await request(server)
         .post(`${paths.auth}${paths.register}`)
         .send(actsResources.actsUserPutFour);
@@ -171,9 +172,48 @@ describe('/api/auth', () => {
         .set(authResources.validToken.header, newUser.body.token)
         .send(actsResources.validAct);
       res.should.have.status(status.goodRequest);
-      res.body[0].description.should.equal(
-      actsResources.validAct.description,
+      res.body[0].description.should.equal(actsResources.validAct.description);
+    });
+  });
+  // acts [DELETE] endpoint tests
+  describe('[DELETE] /acts', () => {
+    it('returns error when a request is made without a token in the Authorization header', async () => {
+      const res = await request(server).delete(
+        `${paths.acts}/${actsResources.invalidAct.id}`,
       );
+      res.should.have.status(status.badCredentials);
+      res.body.message.should.equal(messages.noToken.message);
+    });
+    it('returns error when a request is made with an invalid token', async () => {
+      const res = await request(server)
+        .delete(`${paths.acts}/${actsResources.invalidAct.id}`)
+        .set(
+          authResources.invalidToken.header,
+          authResources.invalidToken.entry,
+        );
+      res.should.have.status(status.badCredentials);
+      res.body.message.should.equal(messages.invalidToken.message);
+    });
+    it('returns error when a request is made with an invalid actID', async () => {
+      const newUser = await request(server)
+        .post(`${paths.auth}${paths.register}`)
+        .send(actsResources.actsUserDelOne);
+      const res = await request(server)
+        .delete(`${paths.acts}/${actsResources.invalidAct.id}`)
+        .set(authResources.validToken.header, newUser.body.token)
+        .send(actsResources.validAct);
+      res.should.have.status(status.badRequest);
+      res.body.message.should.equal(messages.actNoExist.message);
+    });
+    it('returns correct response when a valid delete request is made', async () => {
+      const newUser = await request(server)
+        .post(`${paths.auth}${paths.register}`)
+        .send(actsResources.actsUserDelTwo);
+      const res = await request(server)
+        .delete(`${paths.acts}/${newUser.body.user.acts[0]._id}`)
+        .set(authResources.validToken.header, newUser.body.token);
+      res.should.have.status(status.goodRequest);
+      expect(res.body).to.have.length(newUser.body.user.acts.length - 1);
     });
   });
 });
