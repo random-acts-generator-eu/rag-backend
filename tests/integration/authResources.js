@@ -41,6 +41,13 @@ const authResources = {
     phone: '+44343473833',
     password: 'password',
   },
+  invalidToken: {
+    header: 'Authorization',
+    entry: 123,
+  },
+  validToken: {
+    header: 'Authorization',
+  },
 };
 
 module.exports = authResources;
