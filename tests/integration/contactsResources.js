@@ -55,14 +55,14 @@ const contactsResources = {
     phone: '+44755673872',
     password: 'password',
   },
-  actsUserDelOne: {
+  contactsUserDelOne: {
     firstName: 'Mark',
     lastName: 'Geofferies',
     email: 'mark@gmail.com',
     phone: '+44755673872',
     password: 'password',
   },
-  actsUserDelTwo: {
+  contactsUserDelTwo: {
     firstName: 'Mark',
     lastName: 'Geofferies',
     email: 'markgm@gmail.com',
@@ -71,12 +71,12 @@ const contactsResources = {
   },
   invalidContactLevel: {
     firstName: 'Steven',
-    lasName: 'Humes',
+    lastName: 'Humes',
     level: 'Beep',
   },
   validContact: {
     firstName: 'Steven',
-    lasName: 'Humes',
+    lastName: 'Humes',
     level: 'Close Friend',
   },
   invalidContact: {

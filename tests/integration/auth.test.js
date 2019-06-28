@@ -13,7 +13,7 @@ chai.use(chaiHttp);
 const request = chai.request;
 const should = chai.should();
 
-describe('/api/auth', () => {
+describe('/auth', () => {
   let db;
   before(async () => {
     connection = await mongoose.connect(process.env.TEST_DATBASE_URL, {

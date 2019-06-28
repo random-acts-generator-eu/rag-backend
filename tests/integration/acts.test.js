@@ -16,7 +16,7 @@ const request = chai.request;
 const should = chai.should();
 const expect = chai.expect;
 
-describe('/api/auth', () => {
+describe('/acts', () => {
   let db;
   before(async () => {
     connection = await mongoose.connect(process.env.TEST_DATBASE_URL, {
