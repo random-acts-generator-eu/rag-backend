@@ -62,7 +62,7 @@ describe('/api/auth', () => {
       res.should.have.status(status.badRequest);
       res.body.message.should.equal(messages.invalidPassword.message);
     });
-    it('returns response when a valid registration request is made', async () => {
+    it('returns correct response when a valid registration request is made', async () => {
       const res = await request(server)
         .post(`${paths.auth}${paths.register}`)
         .send(authResources.sucessfulUser);
@@ -101,7 +101,7 @@ describe('/api/auth', () => {
       res.should.have.status(status.badCredentials);
       res.body.message.should.equal(messages.invalidCredentials.message);
     });
-    it('returns response when a valid login request is made', async () => {
+    it('returns correct response when a valid login request is made', async () => {
       await request(server)
         .post(`${paths.auth}${paths.register}`)
         .send(authResources.sucessfulUser);
