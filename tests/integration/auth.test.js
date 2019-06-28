@@ -29,7 +29,7 @@ describe('/api/auth', () => {
     });
     await db.deleteMany({});
   });
-
+  // register endpoint tests
   describe('[POST] /register', () => {
     it('returns error when a request is made without all required fields', async () => {
       const res = await request(server)
@@ -80,7 +80,7 @@ describe('/api/auth', () => {
       );
     });
   });
-
+  // login endpoint tests
   describe('[POST] /login', () => {
     it('returns error when a request is made without all required fields', async () => {
       const res = await request(server)
