@@ -34,7 +34,7 @@ const authResources = {
     phone: '+44343473872',
     password: 'password',
   },
-  sucessfulUserPassword: {
+  sucessfulPasswordUser: {
     firstName: 'Jenny',
     lastName: 'Hasty',
     email: 'jenny@gmail.com',

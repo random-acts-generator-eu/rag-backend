@@ -37,22 +37,16 @@ describe('/api/auth', () => {
         .post(`${paths.auth}${paths.register}`)
         .send({});
       res.should.have.status(status.badRequest);
-      res.text.should.equal(JSON.stringify(messages.missingOnRegister));
+      res.body.message.should.equal(messages.missingOnRegister.message);
     });
-  });
-
-  describe('[POST] /register', () => {
     it('returns error when a request is made with an invalid email', async () => {
       const res = await chai
         .request(server)
         .post(`${paths.auth}${paths.register}`)
         .send(authResources.invalidEmailUser);
       res.should.have.status(status.badRequest);
-      res.text.should.equal(JSON.stringify(messages.invalidEmail));
+      res.body.message.should.equal(messages.invalidEmail.message);
     });
-  });
-
-  describe('[POST] /register', () => {
     it('returns error when a user with the email already exists', async () => {
       await chai
         .request(server)
@@ -64,22 +58,16 @@ describe('/api/auth', () => {
         .post(`${paths.auth}${paths.register}`)
         .send(authResources.duplicateEmailUser);
       res.should.have.status(status.badRequest);
-      res.text.should.equal(JSON.stringify(messages.userAlreadyExists));
+      res.body.message.should.equal(messages.userAlreadyExists.message);
     });
-  });
-
-  describe('[POST] /register', () => {
     it('returns error when a request is made with a password less than 7 characters', async () => {
       const res = await chai
         .request(server)
         .post(`${paths.auth}${paths.register}`)
         .send(authResources.invalidPasswordUser);
       res.should.have.status(status.badRequest);
-      res.text.should.equal(JSON.stringify(messages.invalidPassword));
+      res.body.message.should.equal(messages.invalidPassword.message);
     });
-  });
-
-  describe('[POST] /register', () => {
     it('returns response when a valid registration request is made', async () => {
       const res = await chai
         .request(server)
@@ -90,16 +78,13 @@ describe('/api/auth', () => {
         authResources.sucessfulUser.firstName,
       );
     });
-  });
-
-  describe('[POST] /register', () => {
     it('does not return plain password string when a valid registration request is made', async () => {
       const res = await chai
         .request(server)
         .post(`${paths.auth}${paths.register}`)
-        .send(authResources.sucessfulUserPassword);
+        .send(authResources.sucessfulPasswordUser);
       res.body.user.password.should.not.equal(
-        authResources.sucessfulUserPassword.password,
+        authResources.sucessfulPasswordUser.password,
       );
     });
   });
