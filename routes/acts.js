@@ -5,6 +5,7 @@ const status = require('../utils/status');
 const messages = require('../utils/messages');
 const validateToken = require('../middleware/validateToken');
 const capitalize = require('../utils/capitalize');
+const levels = require('../utils/levels');
 
 const routes = express.Router();
 
@@ -38,10 +39,9 @@ routes.post('/', validateToken, async (req, res) => {
   // get the user id from the decoded token
   const { payload } = req.decodedToken;
   const { description, level } = req.body;
-  const levels = ['Easy', 'Medium', 'Hard'];
   if (description && level) {
     const capLevel = capitalize(level);
-    if (levels.includes(capLevel)) {
+    if (levels.acts.includes(capLevel)) {
       try {
         // look up the user in DB and determine whether they exist
         const user = await models.User.findById(payload);
