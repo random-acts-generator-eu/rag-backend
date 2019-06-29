@@ -1,8 +1,8 @@
+require('dotenv').config();
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../../api/server');
 const mongoose = require('mongoose');
-require('dotenv').config();
 
 const authResources = require('./authResources');
 const paths = require('../../utils/paths');
