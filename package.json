@@ -8,7 +8,7 @@
   "scripts": {
     "server": "nodemon index.js",
     "start": "node index.js",
-    "test": "nyc mocha tests/**/**/*.test.js --recursive --timeout=3000"
+    "test": "nyc mocha tests/**/**/*.test.js --timeout=10000"
   },
   "devDependencies": {
     "chai": "^4.2.0",
