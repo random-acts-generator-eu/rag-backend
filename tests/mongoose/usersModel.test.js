@@ -94,14 +94,36 @@ describe('DB', () => {
       expect(newUser).to.have.property('_id');
     });
   });
+  describe('Acts schema', () => {
+    it('returns error if no description is given with a new act', async () => {
+      const newUser = await new User(
+        usersModelResources.missing_description_acts,
+      );
+      newUser.validate(res => {
+        res.errors[`acts.0.description`].message.should.equal(
+          dbValidation.description_missing,
+        );
+      });
+    });
+    it('returns error if no level is given with a new act', async () => {
+      const newUser = await new User(usersModelResources.missing_level_acts);
+      newUser.validate(res => {
+        res.errors[`acts.0.level`].message.should.equal(
+          dbValidation.level_missing,
+        );
+      });
+    });
+    it('returns error if invalid level is given with a new contact', async () => {
+      const newUser = await new User(usersModelResources.invalid_level_acts);
+      newUser.validate(res => {
+        res.errors[`acts.0.level`].message.should.equal(
+          dbValidation.invalid_level,
+        );
+      });
+    });
+    it('returns correct response when a valid act is added', async () => {
+      const newUser = await new User(usersModelResources.valid_acts);
+      expect(newUser).to.have.property('_id');
+    });
+  });
 });
-
-// contacts
-// 2) valid request
-
-// describe('Acts schema', () => {
-// 1) description missing
-// 2) level missing
-// 3) invalid level
-// 4) valid request
-// })

@@ -6,6 +6,7 @@ const dbValidation = {
   password_missing: 'Path `password` is required.',
   level_missing: 'Path `level` is required.',
   invalid_level: '`Beep` is not a valid enum value for path `level`.',
+  description_missing: 'Path `description` is required.',
 };
 
 module.exports = dbValidation;
